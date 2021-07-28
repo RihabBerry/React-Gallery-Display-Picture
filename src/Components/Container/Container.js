@@ -5,6 +5,7 @@ import axios from 'axios';
 import ImageList from "../ImageList"
 import Search from "../Search"
 import React from 'react';
+import NavBar from '../NavBar';
 
 class Container extends Component
 {
@@ -16,7 +17,6 @@ class Container extends Component
 
     performSearch = (e) =>
     {
-        console.log("qery=", e)
         this.setState({ query: e })
         axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&text=${this.state.query}&per_page=24&page=1&format=json&nojsoncallback=true`)
             .then(response =>
@@ -34,16 +34,30 @@ class Container extends Component
             })
     }
 
+    componentWillReceiveProps(props)
 
+    //it conatains the nextProps
+    {
+        (props.query)
+            ? this.performSearch(props.query)
+            : this.performSearch(props.match.params.query)
+    }
+
+    componentWillMount()
+    {
+        this.performSearch()
+    }
 
     render()
     {
-        console.log(this.state.imgs, "this is pictures")
 
         return (
             <div>
-                <Search performSearch={this.performSearch} />
-                <ImageList images={this.state.imgs} />
+                <NavBar performSearch={this.performSearch} />
+                <div className="photo-container">
+                    <ImageList images={this.state.imgs} />
+                </div>
+
             </div>);
     }
 
