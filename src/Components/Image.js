@@ -7,8 +7,10 @@ class Image extends Component
     {
 
         return (
-            <div>    <img src={this.props.url} alt="" />
-            </div>
+            <li className="img-wrap">
+
+                <img src={this.props.url} alt="" />
+            </li>
         );
     }
 

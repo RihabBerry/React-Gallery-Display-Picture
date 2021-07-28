@@ -9,7 +9,7 @@ class ImageList extends Component
 
     render()
     {
-        console.log("this is your state", this.props.images)
+        console.log("this is your state img", this.props.images)
         if (this.props.images.length)
         {
             console.log("here the issue ")
